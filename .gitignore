@@ -2,7 +2,6 @@
 .idea
 allure-results
 allure-report
-tests/allure-results
 .env
 .git
 .pytest_cache
