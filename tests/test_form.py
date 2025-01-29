@@ -48,8 +48,8 @@ def select_subject():
 
 @allure.step('Выбрать хобби')
 def select_hobbies():
-    s('[for="hobbies-checkbox-1"]').click()  # Sports
-    s('[for="hobbies-checkbox-3"]').click()  # Music
+    s('[for="hobbies-checkbox-1"]').click()
+    s('[for="hobbies-checkbox-3"]').click()
 
 
 @allure.step('Загрузить файл')
@@ -57,7 +57,7 @@ def upload_file():
     s('#uploadPicture').send_keys(file_path)
 
 
-@allure.step('Заполнить поле ввода "адресс"')
+@allure.step('Заполнить поле ввода "адрес"')
 def fill_address():
     s('#currentAddress').type('Moscow 5')
 
@@ -92,7 +92,7 @@ def verify_registration():
     s('.table-responsive').should(have.text('NCR Delhi'))
 
 
-def test_form_submission_with_s_and_banner_removal():
+def test_registration_form():
     open_registration_form()
     fill_full_name()
     fill_email()
