@@ -1,17 +1,34 @@
 import pytest
-from selene.support.shared import browser
 from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
+from selene import Browser, Config
+from utils import attach
 
+@pytest.fixture(scope='function')
+def setup_browser(request):
+    options = Options()
 
-@pytest.fixture(scope="function", autouse=True)
-def browser_setup():
-    options = webdriver.ChromeOptions()
-    browser.config.driver_options = options
-    browser.config.browser_name = 'chrome'
-    browser.config.base_url = 'https://demoqa.com'
-    browser.config.window_width = 1920
-    browser.config.window_height = 1080
+    # Настройки Selenoid
+    options.set_capability("browserName", "chrome")
+    options.set_capability("browserVersion", "100.0")
+    options.set_capability("selenoid:options", {
+        "enableVNC": True,
+        "enableVideo": True
+    })
 
-    yield
+    # Подключаемся к удалённому WebDriver (Selenoid)
+    driver = webdriver.Remote(
+        command_executor="https://user1:1234@selenoid.autotests.cloud/wd/hub",
+        options=options
+    )
+
+    browser = Browser(Config(driver))
+    yield browser
+
+    # Добавляем артефакты в Allure
+    attach.add_screenshot(browser)
+    attach.add_logs(browser)
+    attach.add_html(browser)
+    attach.add_video(browser)
 
     browser.quit()
