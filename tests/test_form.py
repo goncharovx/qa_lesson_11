@@ -1,15 +1,14 @@
 import os
 
-from selene import browser
-from selene import have
+from selene import browser, have
 from selene.api import s
+
+current_dir = os.path.dirname(__file__)
+file_path = os.path.join(current_dir, 'resources', 'pic.png')
 
 
 def test_form_submission_with_s_and_banner_removal():
     browser.open('/automation-practice-form')
-
-    current_dir = os.path.dirname(__file__)
-    file_path = os.path.join(current_dir, 'resources', 'pic.png')
 
     s('#firstName').type('Sonic')
     s('#lastName').type('Syndicate')
