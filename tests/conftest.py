@@ -8,7 +8,6 @@ from utils import attach
 def setup_browser(request):
     options = Options()
 
-    # Настройки Selenoid
     options.set_capability("browserName", "chrome")
     options.set_capability("browserVersion", "100.0")
     options.set_capability("selenoid:options", {
@@ -16,7 +15,6 @@ def setup_browser(request):
         "enableVideo": True
     })
 
-    # Подключаемся к удалённому WebDriver (Selenoid)
     driver = webdriver.Remote(
         command_executor="https://user1:1234@selenoid.autotests.cloud/wd/hub",
         options=options
@@ -25,7 +23,6 @@ def setup_browser(request):
     browser = Browser(Config(driver))
     yield browser
 
-    # Добавляем артефакты в Allure
     attach.add_screenshot(browser)
     attach.add_logs(browser)
     attach.add_html(browser)
