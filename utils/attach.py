@@ -1,5 +1,9 @@
+import os
 import allure
+from dotenv import load_dotenv
 from allure_commons.types import AttachmentType
+
+selenoid_url = os.getenv('SELENOID_URL')
 
 def add_screenshot(browser):
     png = browser.driver.get_screenshot_as_png()
