@@ -2,6 +2,7 @@ import os
 import allure
 from selene import browser, have
 from selene.api import s
+from utils import attach
 
 current_dir = os.path.dirname(__file__)
 file_path = os.path.join(current_dir, 'resources', 'pic.png')
@@ -10,6 +11,7 @@ file_path = os.path.join(current_dir, 'resources', 'pic.png')
 @allure.step('Открыть форму регистрации')
 def open_registration_form():
     browser.open('/automation-practice-form')
+    attach.add_screenshot(browser)
 
 
 @allure.step('Заполнить ФИО')
@@ -25,7 +27,7 @@ def fill_email():
 
 @allure.step('Выбрать пол')
 def select_gender():
-    s('[for="gender-radio-1"]').click()  # Male
+    s('[for="gender-radio-1"]').click()
 
 
 @allure.step('Заполнить поле ввода телефон')
@@ -55,6 +57,7 @@ def select_hobbies():
 @allure.step('Загрузить файл')
 def upload_file():
     s('#uploadPicture').send_keys(file_path)
+    attach.add_screenshot(browser)
 
 
 @allure.step('Заполнить поле ввода "адрес"')
@@ -75,6 +78,8 @@ def select_city():
 @allure.step('Подтвердить регистрацию')
 def submit_form():
     s('#submit').click()
+    attach.add_screenshot(browser)
+    attach.add_html(browser)
 
 
 @allure.step('Проверить форму регистрации')
@@ -90,6 +95,7 @@ def verify_registration():
     s('.table-responsive').should(have.text('pic.png'))
     s('.table-responsive').should(have.text('Moscow 5'))
     s('.table-responsive').should(have.text('NCR Delhi'))
+    attach.add_screenshot(browser)
 
 
 def test_registration_form():
