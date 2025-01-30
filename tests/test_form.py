@@ -1,5 +1,4 @@
 import os
-
 import allure
 from selene import Browser, Config, have
 from selene.api import s
@@ -9,10 +8,12 @@ current_dir = os.path.dirname(__file__)
 file_path = os.path.join(current_dir, 'resources', 'pic.png')
 
 def test_registration_form(setup_browser):
-    browser = Browser(Config(driver=setup_browser))
+    browser = setup_browser
+
     first_name = "Sonic"
     last_name = "Syndicate"
 
+    # Открытие формы регистрации
     with allure.step('Открыть форму регистрации'):
         browser.open('https://demoqa.com/automation-practice-form')
         browser.driver.execute_script("$('footer').remove()")
@@ -21,6 +22,7 @@ def test_registration_form(setup_browser):
         attach.add_logs(browser)
         attach.add_html(browser)
 
+    # Заполнение формы
     with allure.step('Заполнить ФИО'):
         s('#firstName').type(first_name)
         s('#lastName').type(last_name)
@@ -76,6 +78,7 @@ def test_registration_form(setup_browser):
         attach.add_logs(browser)
         attach.add_html(browser)
 
+    # Проверка данных
     with allure.step('Проверить форму регистрации'):
         s('.table-responsive').should(have.text(first_name + ' ' + last_name))
         s('.table-responsive').should(have.text('test@mail.ru'))
