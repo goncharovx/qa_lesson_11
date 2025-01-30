@@ -2,7 +2,6 @@ import os
 import allure
 from selene import browser, have
 from selene.api import s
-from utils import attach
 
 current_dir = os.path.dirname(__file__)
 file_path = os.path.join(current_dir, 'resources', 'pic.png')
