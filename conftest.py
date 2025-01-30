@@ -13,6 +13,9 @@ def setup_browser():
     selenoid_pass = os.getenv("SELENOID_PASS")
     selenoid_url = os.getenv("SELENOID_URL")
 
+    if not selenoid_url or selenoid_url.lower() == "none":
+        raise ValueError("Переменная окружения SELENOID_URL не задана!")
+
     selenoid_capabilities = {
         "browserName": "chrome",
         "browserVersion": "100.0",
@@ -21,6 +24,9 @@ def setup_browser():
             "enableVideo": True
         }
     }
+
+    # Совместим оба метода
+    options.capabilities.update(selenoid_capabilities)
     options.set_capability("selenoid:options", selenoid_capabilities)
 
     driver = webdriver.Remote(
@@ -28,6 +34,8 @@ def setup_browser():
         options=options
     )
 
-    browser = Browser(Config(driver=driver))  # Привязываем драйвер к selene
+    browser = Browser(Config(driver=driver))
+    browser.config.driver = driver
+
     yield browser
     driver.quit()
