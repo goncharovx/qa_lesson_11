@@ -66,7 +66,7 @@ def open_browser(request):
 
     yield browser
 
-    attach.add_screenshot(browser)  # Все методы должны работать с browser
+    attach.add_screenshot(browser)
     attach.add_logs(browser)
     attach.add_html(browser)
     attach.add_video(browser)
