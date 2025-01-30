@@ -51,18 +51,15 @@ if not os.path.exists(".env"):
 
 DEFAULT_BROWSER_VERSION = "126.0"
 
-
 def pytest_addoption(parser):
     parser.addoption(
         '--browser_version',
         default=DEFAULT_BROWSER_VERSION,
     )
 
-
 @pytest.fixture(scope="session", autouse=True)
 def load_env():
     load_dotenv()
-
 
 @pytest.fixture(scope='function', autouse=True)
 def open_browser(request):
@@ -96,17 +93,17 @@ def open_browser(request):
     driver_options.page_load_strategy = 'eager'
     driver_options.add_argument('--ignore-certificate-errors')
     browser.config.driver_options = driver_options
-    #
+
     browser.config.window_width = 1280
     browser.config.window_height = 724
 
     browser.config.base_url = 'https://demoqa.com'
 
-    yield driver
+    yield browser
 
-    attach.add_screenshot(browser)
+    attach.add_screenshot(browser)  # Все методы должны работать с browser
     attach.add_logs(browser)
     attach.add_html(browser)
     attach.add_video(browser)
 
-    driver.quit()
+    browser.quit()
