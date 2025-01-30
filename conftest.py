@@ -25,7 +25,6 @@ def setup_browser():
         }
     }
 
-    # Совместим оба метода
     options.capabilities.update(selenoid_capabilities)
     options.set_capability("selenoid:options", selenoid_capabilities)
 
