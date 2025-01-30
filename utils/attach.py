@@ -1,22 +1,36 @@
 import os
-
 import allure
 from allure_commons.types import AttachmentType
 
 
 def add_screenshot(browser):
-    png = browser.driver.get_screenshot_as_png()  # Используем browser.driver
-    allure.attach(body=png, name='screenshot', attachment_type=AttachmentType.PNG, extension='.png')
+    png = browser.driver.get_screenshot_as_png()  # Используем browser.driver для получения скриншота
+    allure.attach(
+        body=png,
+        name="screenshot",
+        attachment_type=AttachmentType.PNG,
+        extension=".png"
+    )
 
 
 def add_logs(browser):
-    logs = "".join(f"{entry}\n" for entry in browser.get_log("browser"))
-    allure.attach(logs, name="browser_logs", attachment_type=AttachmentType.TEXT)
+    logs = "".join(f"{entry['level']}: {entry['message']}\n" for entry in browser.driver.get_log("browser"))  # Используем browser.driver
+    allure.attach(
+        logs,
+        name="browser_logs",
+        attachment_type=AttachmentType.TEXT,
+        extension=".log"
+    )
 
 
 def add_html(browser):
-    html = browser.page_source
-    allure.attach(html, name="page_source", attachment_type=AttachmentType.HTML)
+    html = browser.driver.page_source  # Используем browser.driver для получения HTML-кода
+    allure.attach(
+        html,
+        name="page_source",
+        attachment_type=AttachmentType.HTML,
+        extension=".html"
+    )
 
 
 def add_video(browser):
