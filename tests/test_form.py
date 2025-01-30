@@ -18,7 +18,7 @@ def test_registration_form(open_browser):
 
     # Открытие формы регистрации
     with allure.step('Открыть форму регистрации'):
-        browser.get('https://demoqa.com/automation-practice-form')
+        browser.open('https://demoqa.com/automation-practice-form')
         browser.execute_script("$('footer').remove()")
         browser.execute_script("$('#fixedban').remove()")
         attach.add_screenshot(browser)
