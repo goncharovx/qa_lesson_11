@@ -1,11 +1,14 @@
 import os
+
 import allure
-from selene import Browser, Config, have
+from selene import have
 from selene.api import s
+
 from utils import attach
 
 current_dir = os.path.dirname(__file__)
 file_path = os.path.join(current_dir, 'resources', 'pic.png')
+
 
 def test_registration_form(setup_browser):
     browser = setup_browser
