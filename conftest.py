@@ -30,7 +30,7 @@ from selene import Browser, Config
 def setup_browser():
     capabilities = {
         "browserName": "chrome",
-        "browserVersion": "126.0",
+        "browserVersion": "125.0",
         "selenoid:options": {
             "enableVNC": True,
             "enableVideo": True,
