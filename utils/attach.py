@@ -5,8 +5,8 @@ from allure_commons.types import AttachmentType
 
 
 def add_screenshot(browser):
-    png = browser.get_screenshot_as_png()
-    allure.attach(png, name="screenshot", attachment_type=AttachmentType.PNG)
+    png = browser.driver.get_screenshot_as_png()  # Используем browser.driver
+    allure.attach(body=png, name='screenshot', attachment_type=AttachmentType.PNG, extension='.png')
 
 
 def add_logs(browser):
