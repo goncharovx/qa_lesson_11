@@ -35,7 +35,6 @@ def setup_browser():
 
     options.set_capability("selenoid:options", selenoid_capabilities)
 
-    # Принудительная установка chromedriver
     service = Service(ChromeDriverManager().install())
 
     driver = webdriver.Remote(
