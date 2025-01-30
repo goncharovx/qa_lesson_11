@@ -13,8 +13,8 @@ def setup_browser():
     selenoid_pass = os.getenv("SELENOID_PASS")
     selenoid_url = os.getenv("SELENOID_URL")
 
-    if not selenoid_url or selenoid_url.lower() == "none":
-        raise ValueError("Переменная окружения SELENOID_URL не задана!")
+    if not selenoid_url or selenoid_url.lower() in ["none", ""]:
+        raise ValueError(f"Переменная SELENOID_URL не задана! Текущее значение: {selenoid_url}")
 
     selenoid_capabilities = {
         "browserName": "chrome",
