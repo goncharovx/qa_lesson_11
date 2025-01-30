@@ -2,6 +2,7 @@ import os
 import pytest
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.chrome.service import Service
 from selene import Browser, Config
 from dotenv import load_dotenv
 from webdriver_manager.chrome import ChromeDriverManager
@@ -11,9 +12,6 @@ if not os.path.exists(".env"):
 
 load_dotenv()
 
-print("SELENOID_LOGIN:", os.getenv("SELENOID_LOGIN"))
-print("SELENOID_PASS:", os.getenv("SELENOID_PASS"))
-print("SELENOID_URL:", os.getenv("SELENOID_URL"))
 
 @pytest.fixture(scope="session")
 def setup_browser():
@@ -37,7 +35,9 @@ def setup_browser():
 
     options.set_capability("selenoid:options", selenoid_capabilities)
 
-    # Используем webdriver-manager для автоматической настройки chromedriver
+    # Принудительная установка chromedriver
+    service = Service(ChromeDriverManager().install())
+
     driver = webdriver.Remote(
         command_executor=f"https://{selenoid_login}:{selenoid_pass}@{selenoid_url}/wd/hub",
         options=options
