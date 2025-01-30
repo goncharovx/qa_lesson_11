@@ -1,7 +1,7 @@
 import os
 
 import allure
-from selene import have
+from selene import Browser, Config, have
 from selene.api import s
 
 current_dir = os.path.dirname(__file__)
@@ -9,7 +9,8 @@ file_path = os.path.join(current_dir, 'resources', 'pic.png')
 
 
 def test_registration_form(setup_browser):
-    browser = setup_browser
+    # Создаём объект Selene Browser
+    browser = Browser(Config(driver=setup_browser))
     first_name = "Sonic"
     last_name = "Syndicate"
 
